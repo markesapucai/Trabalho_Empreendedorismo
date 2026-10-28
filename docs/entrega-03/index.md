@@ -155,7 +155,7 @@ O MVP será considerado validado se pelo menos 4 dos 5 participantes concluírem
 
 O MVP tem três telas principais, uma para cada etapa do fluxo: o morador pede a coleta, o freteiro aceita e o morador recebe o comprovante.
 
-![Wireframes iniciais do MVP: solicitação, painel do freteiro e comprovante](wireframes.png)
+![Wireframes iniciais do MVP: solicitação, painel do freteiro e comprovante](wireframes.svg)
 
 - **Tela 1 – Solicitação do gerador:** campo para tirar ou enviar a foto da pilha de sacos, seletor da quantidade de sacos, volume aproximado e preço da faixa calculados na hora, endereço e botão para confirmar o pedido.
 - **Tela 2 – Painel do freteiro:** lista de pedidos abertos em Lavras, cada um com foto, bairro, quantidade de sacos, volume e valor que o freteiro recebe, com botões de detalhes e aceite; abaixo, as corridas em andamento.
