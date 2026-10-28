@@ -1,13 +1,5 @@
 # Entrega 3 – Proposta de Valor, Modelo de Negócio e Definição do MVP
 
-**Disciplina:** Empreendedorismo em Sistemas de Informação (2026/2) · Prof. Johnatan Oliveira
-
-**Proposta de Empreendimento Digital:** EcoObra
-
-**Repositório Oficial no GitHub:** [github.com/markesapucai/Trabalho_Empreendedorismo](https://github.com/markesapucai/Trabalho_Empreendedorismo)
-
-**Integrantes do Grupo:** Gracielle da Mata Ázara, Mark Leite Sá, Matheus Roberto da Cunha, Mateus Mendonça Sandrin e Miguel Arthur de Paula Coelho
-
 ## 1. Parte A – Proposta de Valor
 
 **1.1 Segmento prioritário.** Moradores, inquilinos e pequenos comerciantes de Lavras-MG que fazem pequenas reformas residenciais ou comerciais, geram até 1,5 m³ de entulho (cerca de 50 sacos de ráfia) e não têm veículo de carga próprio. Na Entrega 2, esse perfil apareceu principalmente nas classes C e D.
