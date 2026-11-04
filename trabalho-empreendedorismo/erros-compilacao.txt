@@ -1,0 +1,103 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24361 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -----------------< com.ufla:trabalho-empreendedorismo >-----------------
+[INFO] Building trabalho-empreendedorismo 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 24361 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to MavenFeed (https://red-gate.pkgs.visualstudio.com/MavenFeed/_packaging/MavenFeed/maven/v1/): HTTP Status: 401
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ trabalho-empreendedorismo ---
+[INFO] Deleting /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/target
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ trabalho-empreendedorismo ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ trabalho-empreendedorismo ---
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 14 source files with javac [debug parameters release 17] to target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[4,32] package sun.jvm.hotspot.debugger.cdbg is not visible
+  (package sun.jvm.hotspot.debugger.cdbg is declared in module jdk.hotspot.agent, which is not in the module graph)
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[9,2] cannot find symbol
+  symbol: class Table
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[11,6] cannot find symbol
+  symbol:   class Id
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[12,6] cannot find symbol
+  symbol:   class GeneratedValue
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[12,32] cannot find symbol
+  symbol:   variable GenerationType
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[14,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[16,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[19,6] cannot find symbol
+  symbol:   class Enumerated
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[20,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[22,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[24,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[INFO] 11 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.408 s
+[INFO] Finished at: 2026-11-04T08:02:42-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.15.0:compile (default-compile) on project trabalho-empreendedorismo: Compilation failure: Compilation failure: 
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[4,32] package sun.jvm.hotspot.debugger.cdbg is not visible
+[ERROR]   (package sun.jvm.hotspot.debugger.cdbg is declared in module jdk.hotspot.agent, which is not in the module graph)
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[9,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[11,6] cannot find symbol
+[ERROR]   symbol:   class Id
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[12,6] cannot find symbol
+[ERROR]   symbol:   class GeneratedValue
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[12,32] cannot find symbol
+[ERROR]   symbol:   variable GenerationType
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[14,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[16,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[19,6] cannot find symbol
+[ERROR]   symbol:   class Enumerated
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[20,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[22,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] /home/miguelcoelho/Documentos/empreendedorismo/Trabalho_Empreendedorismo/trabalho-empreendedorismo/src/main/java/com/ufla/trabalho_empreendedorismo/ecoobra/domain/Usuario.java:[24,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ufla.trabalho_empreendedorismo.ecoobra.domain.Usuario
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
