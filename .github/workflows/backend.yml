@@ -1,0 +1,37 @@
+name: Backend (build + testes)
+
+on:
+  push:
+    branches: [main]
+    paths: ['trabalho-empreendedorismo/**', '.github/workflows/backend.yml']
+  pull_request:
+    paths: ['trabalho-empreendedorismo/**', '.github/workflows/backend.yml']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: trabalho-empreendedorismo
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: ecoobra
+          POSTGRES_USER: ecoobra
+          POSTGRES_PASSWORD: ecoobra_dev
+        ports: ['5433:5432']
+        options: >-
+          --health-cmd "pg_isready -U ecoobra -d ecoobra"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      # Compila e roda o contextLoads: sobe o Spring de verdade, aplica as
+      # migrations do Flyway e valida o mapeamento JPA contra o banco.
+      - name: Build e testes
+        run: mvn -B verify
