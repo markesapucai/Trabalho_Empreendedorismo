@@ -9,37 +9,51 @@ import SolicitacaoColeta from './pages/SolicitacaoColeta';
 import PainelFreteiro from './pages/PainelFreteiro';
 import ComprovanteSelo from './pages/ComprovanteSelo';
 import StatusSistema from './pages/StatusSistema';
+import Login from './pages/Login';
+import { authService } from './services/authService';
+
+const VALID_ROUTES = ['home', 'calculadora', 'locais', 'solicitar', 'freteiro', 'comprovante', 'status', 'entrar'];
+
+/** Lê "#rota/parametro" (ex.: #comprovante/12) */
+function lerHash() {
+  const [rota, param] = window.location.hash.replace('#', '').split('/');
+  return {
+    route: VALID_ROUTES.includes(rota) ? rota : 'home',
+    param: param ? decodeURIComponent(param) : null
+  };
+}
 
 export default function App() {
-  // Sincroniza a rota inicial a partir do hash da URL se presente
-  const getInitialRoute = () => {
-    const hash = window.location.hash.replace('#', '');
-    const validRoutes = ['home', 'calculadora', 'locais', 'solicitar', 'freteiro', 'comprovante', 'status'];
-    return validRoutes.includes(hash) ? hash : 'home';
-  };
+  const [{ route: activeRoute, param }, setRota] = useState(lerHash);
+  const [usuario, setUsuario] = useState(() => authService.usuarioAtual());
 
-  const [activeRoute, setActiveRoute] = useState(getInitialRoute);
-
-  const navigateTo = (route) => {
-    setActiveRoute(route);
-    window.location.hash = route;
+  const navigateTo = (route, routeParam = null) => {
+    setRota({ route, param: routeParam });
+    window.location.hash = routeParam != null ? `${route}/${encodeURIComponent(routeParam)}` : route;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      const validRoutes = ['home', 'calculadora', 'locais', 'solicitar', 'freteiro', 'comprovante', 'status'];
-      if (validRoutes.includes(hash)) {
-        setActiveRoute(hash);
-      }
-    };
-
+    const handleHashChange = () => setRota(lerHash());
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  // Renderizador condicional de páginas
+  const handleLogin = (u) => {
+    setUsuario(u);
+    // Depois do login, volta para onde a pessoa queria ir (ou para a tela do perfil dela)
+    const destino = param && VALID_ROUTES.includes(param)
+      ? param
+      : u.perfil === 'FRETEIRO' ? 'freteiro' : 'solicitar';
+    navigateTo(destino);
+  };
+
+  const handleLogout = () => {
+    authService.sair();
+    setUsuario(null);
+    navigateTo('home');
+  };
+
   const renderPage = () => {
     switch (activeRoute) {
       case 'home':
@@ -49,13 +63,15 @@ export default function App() {
       case 'locais':
         return <LocaisDescarte />;
       case 'solicitar':
-        return <SolicitacaoColeta onNavigate={navigateTo} />;
+        return <SolicitacaoColeta onNavigate={navigateTo} usuario={usuario} />;
       case 'freteiro':
-        return <PainelFreteiro onNavigate={navigateTo} />;
+        return <PainelFreteiro onNavigate={navigateTo} usuario={usuario} />;
       case 'comprovante':
-        return <ComprovanteSelo />;
+        return <ComprovanteSelo pedidoId={param} onNavigate={navigateTo} usuario={usuario} />;
       case 'status':
         return <StatusSistema />;
+      case 'entrar':
+        return <Login onLogin={handleLogin} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }
@@ -64,7 +80,7 @@ export default function App() {
   return (
     <div className="app-container">
       <BackendBanner />
-      <Navbar activeRoute={activeRoute} onNavigate={navigateTo} />
+      <Navbar activeRoute={activeRoute} onNavigate={navigateTo} usuario={usuario} onLogout={handleLogout} />
       <main className="main-content">
         {renderPage()}
       </main>

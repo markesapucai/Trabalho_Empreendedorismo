@@ -31,8 +31,11 @@ public class Pedido {
     public BigDecimal valorTotal, valorRepasse, taxaEcoObra;
     @Column(nullable = false)
     public String enderecoColeta, bairro;
-    @Column(length = 2000)
-    public String fotoEntulho, fotoDescarga;
+    // Fotos são enviadas como data URL (base64) pelo front; TEXT porque não cabem em VARCHAR(2000).
+    @Column(columnDefinition = "TEXT")
+    public String fotoEntulho;
+    @Column(columnDefinition = "TEXT")
+    public String fotoDescarga;
     @ManyToOne
     public LocalDescarte localDescarte;
     @Enumerated(EnumType.STRING)
