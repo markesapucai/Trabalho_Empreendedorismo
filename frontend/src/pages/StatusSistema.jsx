@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { checkBackendHealth } from '../services/api';
 import { precificacaoService } from '../services/precificacaoService';
 import { localDescarteService } from '../services/localDescarteService';
+import { pedidoService } from '../services/pedidoService';
 
 /**
  * Página de Diagnóstico e Status da Arquitetura
@@ -11,6 +12,7 @@ export default function StatusSistema() {
   const [health, setHealth] = useState({ checking: true, online: false, message: '' });
   const [testPreco, setTestPreco] = useState({ running: false, data: null, error: null });
   const [testLocais, setTestLocais] = useState({ running: false, data: null, error: null });
+  const [testPedidos, setTestPedidos] = useState({ running: false, data: null, error: null });
 
   const runAllTests = async () => {
     // 1. Health
@@ -34,6 +36,15 @@ export default function StatusSistema() {
       setTestLocais({ running: false, data: resLocais, error: null });
     } catch (err) {
       setTestLocais({ running: false, data: null, error: err.message });
+    }
+
+    // 4. Teste Pedidos pendentes
+    setTestPedidos({ running: true, data: null, error: null });
+    try {
+      const resPedidos = await pedidoService.pendentes();
+      setTestPedidos({ running: false, data: resPedidos, error: null });
+    } catch (err) {
+      setTestPedidos({ running: false, data: null, error: err.message });
     }
   };
 
@@ -61,7 +72,7 @@ export default function StatusSistema() {
       </div>
 
       {/* Cards de Status dos Endpoints */}
-      <div className="grid-3">
+      <div className="grid-2">
         {/* Card 1: Conectividade Geral */}
         <div className="card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
@@ -116,6 +127,24 @@ export default function StatusSistema() {
             {testLocais.error && <span style={{ color: 'var(--danger)' }}>{testLocais.error}</span>}
           </div>
         </div>
+        {/* Card 4: GET /api/pedidos/pendentes */}
+        <div className="card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <span className="badge badge-neutral">GET</span>
+            <span className={`badge ${testPedidos.error ? 'badge-danger' : testPedidos.data ? 'badge-primary' : 'badge-neutral'}`}>
+              {testPedidos.running ? 'Testando' : testPedidos.error ? 'Erro' : 'OK 200'}
+            </span>
+          </div>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>/api/pedidos/pendentes</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '0.75rem' }}>
+            Pedidos abertos exibidos no painel do freteiro
+          </p>
+          <div style={{ fontSize: '0.85rem', background: 'var(--bg-subtle)', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
+            {testPedidos.running && 'Executando requisição...'}
+            {testPedidos.data && `Sucesso: ${testPedidos.data.length} pedidos pendentes`}
+            {testPedidos.error && <span style={{ color: 'var(--danger)' }}>{testPedidos.error}</span>}
+          </div>
+        </div>
       </div>
 
       {/* Matriz de Cobertura de Funcionalidades */}
@@ -137,46 +166,70 @@ export default function StatusSistema() {
             </thead>
             <tbody>
               <tr style={{ borderBottom: '1px solid var(--border)' }}>
+                <td style={{ padding: '0.75rem', fontWeight: 600 }}>Login e cadastro</td>
+                <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>POST /api/auth/login · /registro</td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '0.75rem', fontWeight: 600 }}>Cálculo de Preço e Volume</td>
                 <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>POST /api/precificacao/calcular</td>
                 <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Totalmente Integrado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
               </tr>
               <tr style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '0.75rem', fontWeight: 600 }}>Listagem de Locais de Descarte</td>
                 <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>GET /api/locais-descarte</td>
                 <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Totalmente Integrado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
               </tr>
               <tr style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '0.75rem', fontWeight: 600 }}>Consulta de Local por ID</td>
                 <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>GET /api/locais-descarte/{'{id}'}</td>
                 <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Totalmente Integrado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
               </tr>
               <tr style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '0.75rem', fontWeight: 600 }}>Criar Solicitação de Coleta</td>
                 <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>POST /api/pedidos</td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-accent">Pendente (Entidade Criada)</span></td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-secondary">Interface Pronta (Prévia via API)</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid var(--border)' }}>
+                <td style={{ padding: '0.75rem', fontWeight: 600 }}>Meus pedidos (gerador)</td>
+                <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>GET /api/pedidos/gerador/{'{id}'}</td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
               </tr>
               <tr style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '0.75rem', fontWeight: 600 }}>Painel do Freteiro (Listagem)</td>
                 <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>GET /api/pedidos/pendentes</td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-accent">Pendente (Repo Criado)</span></td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-secondary">Interface Pronta (Wireframe 2)</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
               </tr>
               <tr style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '0.75rem', fontWeight: 600 }}>Aceite de Coleta pelo Freteiro</td>
                 <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>POST /api/pedidos/{'{id}'}/aceitar</td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-accent">Pendente (lockById criado)</span></td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-secondary">Interface Pronta</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid var(--border)' }}>
+                <td style={{ padding: '0.75rem', fontWeight: 600 }}>Encerramento com local e foto</td>
+                <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>POST /api/pedidos/{'{id}'}/concluir</td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid var(--border)' }}>
+                <td style={{ padding: '0.75rem', fontWeight: 600 }}>Minhas coletas (freteiro)</td>
+                <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>GET /api/pedidos/freteiro/{'{id}'}</td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
               </tr>
               <tr>
                 <td style={{ padding: '0.75rem', fontWeight: 600 }}>Comprovante Selo EcoDescarte</td>
                 <td style={{ padding: '0.75rem', fontFamily: 'monospace' }}>GET /api/pedidos/{'{id}'}/comprovante</td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-accent">Pendente</span></td>
-                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Pronto com Impressão/PDF</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Implementado</span></td>
+                <td style={{ padding: '0.75rem' }}><span className="badge badge-primary">Integrado</span></td>
               </tr>
             </tbody>
           </table>

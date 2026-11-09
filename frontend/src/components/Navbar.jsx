@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 /**
  * Barra de navegação principal com suporte a menu mobile e links para todas as áreas
  */
-export default function Navbar({ activeRoute, onNavigate }) {
+export default function Navbar({ activeRoute, onNavigate, usuario, onLogout }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -55,6 +55,19 @@ export default function Navbar({ activeRoute, onNavigate }) {
                 </button>
               </li>
             ))}
+            <li>
+              {usuario ? (
+                <button className="nav-link-btn" onClick={() => { onLogout(); setMobileMenuOpen(false); }} title="Sair">
+                  <span>{usuario.perfil === 'FRETEIRO' ? '🚚' : '🏠'}</span>
+                  <span>{usuario.nome.split(' ')[0]} · Sair</span>
+                </button>
+              ) : (
+                <button className={`nav-link-btn ${activeRoute === 'entrar' ? 'active' : ''}`} onClick={() => handleNavClick('entrar')}>
+                  <span>👤</span>
+                  <span>Entrar</span>
+                </button>
+              )}
+            </li>
           </ul>
         </nav>
       </div>

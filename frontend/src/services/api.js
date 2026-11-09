@@ -35,6 +35,13 @@ export async function apiRequest(endpoint, options = {}) {
     const data = isJson ? await response.json() : await response.text();
 
     if (!response.ok) {
+      // Com o backend desligado, o proxy do Vite responde 500/502/504 com corpo vazio.
+      // Isso NÃO é um erro da API: tratamos como falha de conexão.
+      if (response.status >= 500 && (data === '' || data == null)) {
+        const netErr = new Error('offline');
+        netErr.isNetworkError = true;
+        throw netErr;
+      }
       const errorMessage = data?.message || (typeof data === 'string' && data) || `Erro HTTP ${response.status}: ${response.statusText}`;
       const error = new Error(errorMessage);
       error.status = response.status;
@@ -45,8 +52,9 @@ export async function apiRequest(endpoint, options = {}) {
     return data;
   } catch (error) {
     // Se for erro de rede (backend fora do ar)
-    if (!error.status) {
+    if (!error.status || error.isNetworkError) {
       error.isNetworkError = true;
+      error.status = undefined;
       error.message = 'Não foi possível conectar ao servidor backend (porta 8080). Verifique se a aplicação Spring Boot está em execução.';
     }
     throw error;
